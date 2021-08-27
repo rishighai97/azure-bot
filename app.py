@@ -5,7 +5,6 @@ from botbuilder.schema import Activity
 import asyncio
 from qna_bot import QnaBot
 import requests
-import json
 import logging
 from properties import *
 
@@ -14,7 +13,7 @@ log = logging.getLogger('werkzeug')
 log.disabled = True
 loop = asyncio.get_event_loop()
 
-botsettings = BotFrameworkAdapterSettings("", "")
+botsettings = BotFrameworkAdapterSettings(app_registration_id, app_registration_secret)
 botadapter = BotFrameworkAdapter(botsettings)
 
 CONMEMORY = ConversationState(MemoryStorage())
@@ -70,4 +69,4 @@ def get_bing_search_response(body):
 
 if __name__ == '__main__':
     print('Running app')
-    app.run('localhost', 3978)
+    app.run("localhost", 3978)
