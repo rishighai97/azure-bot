@@ -51,7 +51,6 @@ def update_user_input_with_bing_search_response(body, bing_search_response):
 def get_bing_search_response(body):
     try:
         text = body['text']
-
         headers = {"Ocp-Apim-Subscription-Key": bing_search_key}
         params = {"q": text, "textDecorations": True, "textFormat": "HTML"}
 
