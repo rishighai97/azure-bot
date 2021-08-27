@@ -1,4 +1,4 @@
-app_registration_id = '4bfb2bef-dee0-4962-bab0-1a3b73821442'
+app_registration_id = '11a4eafe-b918-40cc-b60d-bcb110d67b9e'
 app_registration_secret = '9E-v8Yr-40BMa2oas~1vIG_tVKRL4M44Z_'
 
 qna_maker_key = '1093452c-4ddc-4070-b4b6-cafea227b487'
