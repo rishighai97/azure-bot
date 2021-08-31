@@ -66,7 +66,7 @@ class QnABot(ActivityHandler):
             config = DefaultConfig()
             bing_response = turn_context.activity.text
             
-            headers = {"Ocp-Apim-Subscription-Key": config.BING_KEY1}
+            headers = {"Ocp-Apim-Subscription-Key": config.BING_KEY}
             params = {"q": bing_response, "textDecorations": True, "textFormat": "HTML"}
             response = requests.get(config.BING_END_POINT, headers=headers, params=params)
             search_results = response.json()

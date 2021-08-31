@@ -1,7 +1,7 @@
 botbuilder-integration-aiohttp
-aiohttp==3.4.4
-botbuilder-ai
+aiohttp
+botbuilder-ai>=4.7.0
 Rust
-requests==2.23.0
+requests
 azure-cognitiveservices-vision-customvision
 azure-cognitiveservices-vision-computervision

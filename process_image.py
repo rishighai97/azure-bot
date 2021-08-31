@@ -19,7 +19,7 @@ Authenticates your credentials and creates a client.
 
 async def process_image_content(turn_context, data):
     config = DefaultConfig()
-    subscription_key = config.CV_SUBSCRIPTION_KEY1
+    subscription_key = config.CV_SUBSCRIPTION_KEY
     endpoint = config.CV_END_POINT_KEY
 
     computervision_client = ComputerVisionClient(endpoint, CognitiveServicesCredentials(subscription_key))
