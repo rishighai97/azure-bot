@@ -76,16 +76,20 @@ async def messages(req: Request) -> Response:
     if response:
         return json_response(data=response.body, status=response.status)
     return Response(status=HTTPStatus.OK)
-    
+
+
 def html_response(document):
     s = open(document, "r")
     return web.Response(text=s.read(), content_type='text/html')
 
+
 async def test(req: Request) -> Response:
     return json_response(data="Hello world", status=HTTPStatus.OK)
 
+
 async def index(req: Request) -> Response:
     return html_response('index.html')
+
 
 def init_func(argv):
     APP = web.Application(middlewares=[aiohttp_error_middleware])
@@ -93,10 +97,11 @@ def init_func(argv):
     APP.router.add_get("/", index)
     APP.router.add_get("/chat", index)
     return APP
-    
+
+
 if __name__ == "__main__":
     APP = init_func(None)
     try:
-        web.run_app(APP, host="0.0.0.0", port=CONFIG.PORT)
+        web.run_app(APP, host="localhost", port=CONFIG.PORT)
     except Exception as error:
         raise error
