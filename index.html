@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <iframe src='https://webchat.botframework.com/embed/chatbot-cowin-bothandle?s=d37evAoPdi4.YlVFGp59s-nly2xhJ3g0_Uq1tKDf4KxcwRro66p7kVM'  style='min-width: 400px; width: 100%; min-height: 500px;'></iframe>
+</body>
+<script>
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', "https://webchat.botframework.com/api/tokens", true);
+    xhr.setRequestHeader('Authorization', 'BotConnector ' + 'd37evAoPdi4.YlVFGp59s-nly2xhJ3g0_Uq1tKDf4KxcwRro66p7kVM');
+    xhr.send();
+    xhr.onreadystatechange = processRequest;
+
+    function processRequest(e) {
+      if (xhr.readyState == 4  && xhr.status == 200) {
+        var response = JSON.parse(xhr.responseText);
+        document.getElementById("chat").src="https://webchat.botframework.com/embed/chatbot-cowin-bothandle?t="+response
+      }
+    }
+
+  </script>
+</html>
