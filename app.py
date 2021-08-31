@@ -5,8 +5,6 @@ import sys
 import traceback
 from datetime import datetime
 from http import HTTPStatus
-from flask import Flask, request, Response
-import logging
 
 from aiohttp import web
 from aiohttp.web import Request, Response, json_response
@@ -20,12 +18,6 @@ from botbuilder.schema import Activity, ActivityTypes
 
 from bots import QnABot
 from config import DefaultConfig
-
-# create app
-app = Flask(__name__)
-log = logging.getLogger('werkzeug')
-log.disabled = True
-loop = asyncio.get_event_loop()
 
 CONFIG = DefaultConfig()
 
@@ -84,20 +76,16 @@ async def messages(req: Request) -> Response:
     if response:
         return json_response(data=response.body, status=response.status)
     return Response(status=HTTPStatus.OK)
-
-
+    
 def html_response(document):
     s = open(document, "r")
     return web.Response(text=s.read(), content_type='text/html')
 
-
 async def test(req: Request) -> Response:
     return json_response(data="Hello world", status=HTTPStatus.OK)
 
-
 async def index(req: Request) -> Response:
     return html_response('index.html')
-
 
 def init_func(argv):
     APP = web.Application(middlewares=[aiohttp_error_middleware])
@@ -105,8 +93,10 @@ def init_func(argv):
     APP.router.add_get("/", index)
     APP.router.add_get("/chat", index)
     return APP
-
-
+    
 if __name__ == "__main__":
-    print('Running app')
-    app.run("localhost", CONFIG.PORT)
+    APP = init_func(None)
+    try:
+        web.run_app(APP, host="0.0.0.0", port=CONFIG.PORT)
+    except Exception as error:
+        raise error
