@@ -22,6 +22,7 @@ from config import DefaultConfig
 
 # Listen for incoming requests on /api/messages
 async def messages(req: Request) -> Response:
+    print("Got a request for messages")
     # Main bot message handler.
     if "application/json" in req.headers["Content-Type"]:
         body = await req.json()
@@ -62,6 +63,9 @@ APP = init_func(None)
 
 CONFIG = DefaultConfig()
 
+# Create the Bot
+BOT = QnABot(CONFIG)
+
 # Create adapter.
 # See https://aka.ms/about-bot-adapter to learn more about how bots work.
 SETTINGS = BotFrameworkAdapterSettings(CONFIG.APP_ID, CONFIG.APP_PASSWORD)
@@ -97,9 +101,6 @@ async def on_error(context: TurnContext, error: Exception):
 
 
 ADAPTER.on_turn_error = on_error
-
-# Create the Bot
-BOT = QnABot(CONFIG)
 
 if __name__ == "__main__":
     try:
