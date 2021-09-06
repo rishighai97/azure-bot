@@ -1,4 +1,4 @@
-﻿# EchoBot
+﻿# Chatbot - QnA , Bing Search (Spell Correction) , Computer Vision(Image Reading)
 
 Bot Framework v4 echo bot sample.
 
@@ -34,6 +34,14 @@ Enter text in the emulator.  The text will be echoed back by the bot.
 ## Deploy the bot to Azure
 
 To learn more about deploying a bot to Azure, see [Deploy your bot to Azure](https://aka.ms/azuredeployment) for a complete list of deployment instructions.
+
+Easy steps:
+1. Open the code's root directory.
+2. Create a zip
+3. Open cmd
+4. az login -> Browser will open to login to your azure account
+5. az webapp deployment source config-zip --resource-group resource_group_name --name app_service_name --src zip_name.zip
+
 
 ## Further reading
 
