@@ -13,63 +13,53 @@ from botbuilder.core import (
     TurnContext,
     BotFrameworkAdapter,
 )
-from botbuilder.core.integration import aiohttp_error_middleware
+
+from flask import Flask, request, Response
+from botbuilder.core import BotFrameworkAdapter, BotFrameworkAdapterSettings, TurnContext, ConversationState, \
+    MemoryStorage
 from botbuilder.schema import Activity, ActivityTypes
 
 from bots import QnABot
 from config import DefaultConfig
+import logging
+import asyncio
 
-
-# Listen for incoming requests on /api/messages
-async def messages(req: Request) -> Response:
-    print("Got a request for messages")
-    # Main bot message handler.
-    if "application/json" in req.headers["Content-Type"]:
-        body = await req.json()
-    else:
-        return Response(status=HTTPStatus.UNSUPPORTED_MEDIA_TYPE)
-
-    activity = Activity().deserialize(body)
-    auth_header = req.headers["Authorization"] if "Authorization" in req.headers else ""
-
-    response = await ADAPTER.process_activity(activity, auth_header, BOT.on_turn)
-    if response:
-        return json_response(data=response.body, status=response.status)
-    return Response(status=HTTPStatus.OK)
-
-
-def html_response(document):
-    s = open(document, "r")
-    return web.Response(text=s.read(), content_type='text/html')
-
-
-async def test(req: Request) -> Response:
-    return json_response(data="Hello world", status=HTTPStatus.OK)
-
-
-async def index(req: Request) -> Response:
-    return html_response('index.html')
-
-
-def init_func(argv):
-    app = web.Application(middlewares=[aiohttp_error_middleware])
-    app.router.add_post("/api/messages", messages)
-    app.router.add_get("/", index)
-    app.router.add_get("/chat", index)
-    return app
-
-
-APP = init_func(None)
+app = Flask(__name__)
+log = logging.getLogger('werkzeug')
+log.disabled = True
+loop = asyncio.get_event_loop()
 
 CONFIG = DefaultConfig()
 
 # Create the Bot
 BOT = QnABot(CONFIG)
 
-# Create adapter.
-# See https://aka.ms/about-bot-adapter to learn more about how bots work.
 SETTINGS = BotFrameworkAdapterSettings(CONFIG.APP_ID, CONFIG.APP_PASSWORD)
 ADAPTER = BotFrameworkAdapter(SETTINGS)
+
+
+# Listen for incoming requests on /api/messages
+@app.route("/api/messages", methods=["POST"])
+def messages():
+    print("Got a request for messages")
+    # Main bot message handler.
+    if "application/json" in request.headers["Content-Type"]:
+        body = request.json
+    else:
+        return Response(status=HTTPStatus.UNSUPPORTED_MEDIA_TYPE)
+
+    activity = Activity().deserialize(body)
+    auth_header = request.headers["Authorization"] if "Authorization" in request.headers else ""
+
+    async def call_fun(turncontext):
+        await BOT.on_turn(turncontext)
+
+    task = loop.create_task(
+        ADAPTER.process_activity(activity, auth_header, call_fun)
+    )
+
+    loop.run_until_complete(task)
+    return 'OK'
 
 
 # Catch-all for errors.
@@ -102,8 +92,6 @@ async def on_error(context: TurnContext, error: Exception):
 
 ADAPTER.on_turn_error = on_error
 
-if __name__ == "__main__":
-    try:
-        web.run_app(APP, host="localhost", port=CONFIG.PORT)
-    except Exception as error:
-        raise error
+if __name__ == '__main__':
+    print('Running app')
+    app.run("localhost", CONFIG.PORT)
