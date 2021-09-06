@@ -20,12 +20,42 @@ from bots import QnABot
 from config import DefaultConfig
 
 
+# Listen for incoming requests on /api/messages
+async def messages(req: Request) -> Response:
+    # Main bot message handler.
+    if "application/json" in req.headers["Content-Type"]:
+        body = await req.json()
+    else:
+        return Response(status=HTTPStatus.UNSUPPORTED_MEDIA_TYPE)
+
+    activity = Activity().deserialize(body)
+    auth_header = req.headers["Authorization"] if "Authorization" in req.headers else ""
+
+    response = await ADAPTER.process_activity(activity, auth_header, BOT.on_turn)
+    if response:
+        return json_response(data=response.body, status=response.status)
+    return Response(status=HTTPStatus.OK)
+
+
+def html_response(document):
+    s = open(document, "r")
+    return web.Response(text=s.read(), content_type='text/html')
+
+
+async def test(req: Request) -> Response:
+    return json_response(data="Hello world", status=HTTPStatus.OK)
+
+
+async def index(req: Request) -> Response:
+    return html_response('index.html')
+
+
 def init_func(argv):
-    APP = web.Application(middlewares=[aiohttp_error_middleware])
-    APP.router.add_post("/api/messages", messages)
-    APP.router.add_get("/", index)
-    APP.router.add_get("/chat", index)
-    return APP
+    app = web.Application(middlewares=[aiohttp_error_middleware])
+    app.router.add_post("/api/messages", messages)
+    app.router.add_get("/", index)
+    app.router.add_get("/chat", index)
+    return app
 
 
 APP = init_func(None)
@@ -70,39 +100,6 @@ ADAPTER.on_turn_error = on_error
 
 # Create the Bot
 BOT = QnABot(CONFIG)
-
-
-# Listen for incoming requests on /api/messages
-async def messages(req: Request) -> Response:
-    # Main bot message handler.
-    if "application/json" in req.headers["Content-Type"]:
-        body = await req.json()
-    else:
-        return Response(status=HTTPStatus.UNSUPPORTED_MEDIA_TYPE)
-
-    activity = Activity().deserialize(body)
-    auth_header = req.headers["Authorization"] if "Authorization" in req.headers else ""
-
-    response = await ADAPTER.process_activity(activity, auth_header, BOT.on_turn)
-    if response:
-        return json_response(data=response.body, status=response.status)
-    return Response(status=HTTPStatus.OK)
-
-
-def html_response(document):
-    s = open(document, "r")
-    return web.Response(text=s.read(), content_type='text/html')
-
-
-async def test(req: Request) -> Response:
-    return json_response(data="Hello world", status=HTTPStatus.OK)
-
-
-async def index(req: Request) -> Response:
-    return html_response('index.html')
-
-
-
 
 if __name__ == "__main__":
     try:
