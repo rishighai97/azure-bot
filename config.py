@@ -14,7 +14,7 @@ class DefaultConfig:
 #     APP_ID = os.environ.get("MicrosoftAppId", "")
 #     APP_PASSWORD = os.environ.get("MicrosoftAppPassword", "")
     PORT = 3978
-    APP_ID = os.environ.get("MicrosoftAppId", "4bfb2bef-dee0-4962-bab0-1a3b73821442")
+    APP_ID = os.environ.get("MicrosoftAppId", "11a4eafe-b918-40cc-b60d-bcb110d67b9e")
     APP_PASSWORD = os.environ.get("MicrosoftAppPassword", "9E-v8Yr-40BMa2oas~1vIG_tVKRL4M44Z_")
     QNA_KNOWLEDGEBASE_ID = os.environ.get("QnAKnowledgebaseId", "1093452c-4ddc-4070-b4b6-cafea227b487")
     QNA_ENDPOINT_KEY = os.environ.get("QnAEndpointKey", "db39a326-4b3e-4058-9ef8-04c23207f514")
