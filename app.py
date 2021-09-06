@@ -19,6 +19,17 @@ from botbuilder.schema import Activity, ActivityTypes
 from bots import QnABot
 from config import DefaultConfig
 
+
+def init_func(argv):
+    APP = web.Application(middlewares=[aiohttp_error_middleware])
+    APP.router.add_post("/api/messages", messages)
+    APP.router.add_get("/", index)
+    APP.router.add_get("/chat", index)
+    return APP
+
+
+APP = init_func(None)
+
 CONFIG = DefaultConfig()
 
 # Create adapter.
@@ -91,16 +102,9 @@ async def index(req: Request) -> Response:
     return html_response('index.html')
 
 
-def init_func(argv):
-    APP = web.Application(middlewares=[aiohttp_error_middleware])
-    APP.router.add_post("/api/messages", messages)
-    APP.router.add_get("/", index)
-    APP.router.add_get("/chat", index)
-    return APP
 
 
 if __name__ == "__main__":
-    APP = init_func(None)
     try:
         web.run_app(APP, host="localhost", port=CONFIG.PORT)
     except Exception as error:
