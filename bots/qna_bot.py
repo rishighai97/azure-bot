@@ -37,7 +37,7 @@ class QnABot(ActivityHandler):
 
     async def on_message_activity(self, turn_context: TurnContext):
         # Check if there are attachments
-        if (turn_context.activity.attachments and len(turn_context.activity.attachments) > 0):
+        if turn_context.activity.attachments and len(turn_context.activity.attachments) > 0:
             await self._handle_incoming_attachment(turn_context)
             
         # Split the questions based on ';'
@@ -58,6 +58,7 @@ class QnABot(ActivityHandler):
 
     async def split_and_separate_questions(self, turn_context):
         text = turn_context.activity.text
+        print("Questions: ",text)
         text_array = text.split(';')
         return text_array
 
@@ -88,6 +89,7 @@ class QnABot(ActivityHandler):
         try:
             response = urllib.request.urlopen(attachment.content_url)
             headers = response.info()
+            print("Attachment headers: ",headers)
             # If user uploads JSON file, this prevents it from being written as
             # "{"type":"Buffer","data":[123,13,10,32,32,34,108..."
             if headers["content-type"] == "application/json":
