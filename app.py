@@ -25,10 +25,8 @@ import logging
 import asyncio
 
 app = Flask(__name__)
-log = logging.getLogger('werkzeug')
-log.disabled = True
 loop = asyncio.get_event_loop()
-
+log = logging.getLogger('werkzeug')
 CONFIG = DefaultConfig()
 
 # Create the Bot
@@ -41,7 +39,7 @@ ADAPTER = BotFrameworkAdapter(SETTINGS)
 # Listen for incoming requests on /api/messages
 @app.route("/api/messages", methods=["POST"])
 def messages():
-    print("Got a request for messages")
+    log.info("Got a request for messages")
     # Main bot message handler.
     if "application/json" in request.headers["Content-Type"]:
         body = request.json

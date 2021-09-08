@@ -10,9 +10,8 @@ import os
 class DefaultConfig:
     """ Bot Configuration """
 
-#    PORT = 3978
-#     APP_ID = os.environ.get("MicrosoftAppId", "")
-#     APP_PASSWORD = os.environ.get("MicrosoftAppPassword", "")
+    # APP_ID = os.environ.get("MicrosoftAppId", "")
+    # APP_PASSWORD = os.environ.get("MicrosoftAppPassword", "")
     PORT = 3978
     APP_ID = os.environ.get("MicrosoftAppId", "11a4eafe-b918-40cc-b60d-bcb110d67b9e")
     APP_PASSWORD = os.environ.get("MicrosoftAppPassword", "9E-v8Yr-40BMa2oas~1vIG_tVKRL4M44Z_")
