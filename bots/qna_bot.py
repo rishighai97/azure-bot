@@ -90,8 +90,12 @@ class QnABot(ActivityHandler):
             headers = response.info()
             # If user uploads JSON file, this prevents it from being written as
             # "{"type":"Buffer","data":[123,13,10,32,32,34,108..."
+            print(headers["content-type"])
             if headers["content-type"] == "application/json":
                 data = bytes(json.load(response)["data"])
+            elif "image" in headers["content-type"]:
+                image = requests.get(url=json.load(response)["content"]["downloadUrl"])
+                data = bytes(image)
             else:
                 data = response.read()
             output = process_image.process_image_content(turn_context, BytesIO(data))
