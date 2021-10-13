@@ -43,7 +43,8 @@ ADAPTER = BotFrameworkAdapter(SETTINGS)
 def messages():
     print("Got a request for messages")
     # Main bot message handler.
-    if "application/json" in request.headers["Content-Type"]:
+    content_type = request.headers["Content-Type"]
+    if CONFIG.CONTENT_TYPE_JSON in content_type or CONFIG.CONTENT_TYPE_TEAMS_ATTACHMENT in content_type:
         body = request.json
     else:
         return Response(status=HTTPStatus.UNSUPPORTED_MEDIA_TYPE)

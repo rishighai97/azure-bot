@@ -53,3 +53,8 @@ Easy steps:
 - [Azure CLI](https://docs.microsoft.com/cli/azure/?view=azure-cli-latest)
 - [Azure Portal](https://portal.azure.com)
 - [Channels and Bot Connector Service](https://docs.microsoft.com/en-us/azure/bot-service/bot-concepts?view=azure-bot-service-4.0)
+
+
+## Debugging teams application
+- `ngrok http 3978 -host-header="localhost:3978"`
+- Add HTTPS Forwarding URL as <URL>/api/messages in messaging endpoint section of azure bot

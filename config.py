@@ -12,6 +12,10 @@ class DefaultConfig:
 #    PORT = 3978
 #     APP_ID = os.environ.get("MicrosoftAppId", "")
 #     APP_PASSWORD = os.environ.get("MicrosoftAppPassword", "")
+
+    CONTENT_TYPE_TEAMS_ATTACHMENT = "application/vnd.microsoft.teams.file.download.info"
+    CONTENT_TYPE_JSON = "application/json"
+
     PORT = 3978
 
     APP_ID = os.environ.get("MicrosoftAppId", "54b403f1-14fb-4eb7-a2e9-fdd8a2b2a81e")
