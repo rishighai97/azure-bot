@@ -14,14 +14,18 @@ class DefaultConfig:
 #     APP_ID = os.environ.get("MicrosoftAppId", "")
 #     APP_PASSWORD = os.environ.get("MicrosoftAppPassword", "")
     PORT = 3978
-    APP_ID = os.environ.get("MicrosoftAppId", "11a4eafe-b918-40cc-b60d-bcb110d67b9e")
-    APP_PASSWORD = os.environ.get("MicrosoftAppPassword", "9E-v8Yr-40BMa2oas~1vIG_tVKRL4M44Z_")
-    QNA_KNOWLEDGEBASE_ID = os.environ.get("QnAKnowledgebaseId", "1093452c-4ddc-4070-b4b6-cafea227b487")
-    QNA_ENDPOINT_KEY = os.environ.get("QnAEndpointKey", "db39a326-4b3e-4058-9ef8-04c23207f514")
-    QNA_ENDPOINT_HOST = os.environ.get("QnAEndpointHostName", "https://chatbot-cowin-qna.azurewebsites.net/qnamaker")
-    CV_SUBSCRIPTION_KEY1 = os.environ.get("CVSubscriptionKey1", "d27103a850c04079bb365dd8cfedcf53")
-    CV_SUBSCRIPTION_KEY2 = os.environ.get("CVSubscriptionKey2", "4735d337d3874db4a3bcd655e73b9843")
-    CV_END_POINT_KEY = os.environ.get("CVEndpointKey", "https://chatbot-cowin-computervision.cognitiveservices.azure.com/")
+
+    APP_ID = os.environ.get("MicrosoftAppId", "6a97e534-7258-45f9-a07b-e70230ff3886")
+    APP_PASSWORD = os.environ.get("MicrosoftAppPassword", "tA0L@58d#p[=Lu]-3Ep$O15N_rZ8#_o")
+
+    QNA_KNOWLEDGEBASE_ID = os.environ.get("QnAKnowledgebaseId", "f282215e-315a-4805-b2e8-aeac7a06df88")
+    QNA_ENDPOINT_KEY = os.environ.get("QnAEndpointKey", "903d27df-6ca6-4ce9-b9cd-d157036848b8")
+    QNA_ENDPOINT_HOST = os.environ.get("QnAEndpointHostName", "https://chatbot-chapter-qna.azurewebsites.net/qnamaker")
+
+    CV_SUBSCRIPTION_KEY1 = os.environ.get("CVSubscriptionKey1", "cd55e74812094253bd51e3156654a60c")
+    CV_SUBSCRIPTION_KEY2 = os.environ.get("CVSubscriptionKey2", "5c4e8d21a2fd4f5a8efded78f00f6616")
+    CV_END_POINT_KEY = os.environ.get("CVEndpointKey", "https://chatbot-cowin-cv.cognitiveservices.azure.com/")
+
     BING_END_POINT = os.environ.get("BING_END_POINT", "https://api.bing.microsoft.com/v7.0/search")
-    BING_KEY1 = os.environ.get("BING_KEY1", "ac85703fb7f846bc81acbd45f99c86d8")
-    BING_KEY2 = os.environ.get("BING_KEY2", "f8378ea5fc2f4adcb8d90de2a711f89a")
+    BING_KEY1 = os.environ.get("BING_KEY1", "ab93c8b7e8f2407da751a2306e61a354")
+    BING_KEY2 = os.environ.get("BING_KEY2", "84a44c62964149f59ce48f3be84fb11f")
