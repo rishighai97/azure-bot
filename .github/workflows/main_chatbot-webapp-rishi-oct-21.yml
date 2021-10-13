@@ -2,7 +2,7 @@
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 # More info on Python, GitHub Actions, and Azure App Service: https://aka.ms/python-webapps-actions
 
-name: Build and deploy Python app to Azure Web App - chatbot-cowin-linux
+name: Build and deploy Python app to Azure Web App - chatbot-webapp-rishi-oct-21
 
 on:
   push:
@@ -58,6 +58,6 @@ jobs:
         uses: azure/webapps-deploy@v2
         id: deploy-to-webapp
         with:
-          app-name: 'chatbot-cowin-linux'
+          app-name: 'chatbot-webapp-rishi-oct-21'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_638315FF74DB4CA29D0E2DFD945C0376 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D60E7FD77F3849F59403151E3A7836A6 }}
